@@ -1,5 +1,21 @@
 CC=clang
-CFLAGS=-Wall -Wextra
+CFLAGS=-Wall -Wextra -Werror -pedantic -ggdb
 
-all: src/main.c src/heap.c src/heap.h
-	$(CC) $(CFLAGS) src/main.c src/heap.c -o build/heap_alloc.exe
+c_files := src/main.c src/heap.c
+h_files := src/heap.h
+
+debug = build/debug
+release = build/release
+
+.PHONY: debug release $(debug) $(release)
+debug: $(c_files) $(h_files) | $(debug)
+	$(CC) $(CFLAGS) $(c_files) -o $(debug)/heap_alloc.exe
+
+release: $(c_files) $(h_files) | $(release)
+	$(CC) $(CFLAGS) -O3 $(c_files) -o $(release)/heap_alloc.exe
+
+$(debug):
+	mkdir -p $(debug)
+
+$(release):
+	mkdir -p $(release)
