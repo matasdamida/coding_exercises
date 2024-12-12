@@ -23,6 +23,6 @@ typedef struct {
 
 extern Chunk_List chunk_list;
 
-void print_chunk_list();
+void print_chunk_list(void);
 
 #endif // HEAP_H_

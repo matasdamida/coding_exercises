@@ -1,15 +1,15 @@
-CC=clang
-CFLAGS=-Wall -Wextra -Werror -ggdb# -pedantic 
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -pedantic
 
-c_files := src/main.c src/heap.c
-h_files := src/heap.h
+c_files = src/main.c src/heap.c
+h_files = src/heap.h
 
 debug = build/debug
 release = build/release
 
 .PHONY: debug release
 debug: $(c_files) $(h_files) | $(debug)
-	$(CC) $(CFLAGS) $(c_files) -o $(debug)/heap_alloc.exe
+	$(CC) $(CFLAGS) -ggdb $(c_files) -o $(debug)/heap_alloc.exe
 
 release: $(c_files) $(h_files) | $(release)
 	$(CC) $(CFLAGS) -O3 $(c_files) -o $(release)/heap_alloc.exe

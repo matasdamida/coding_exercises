@@ -3,7 +3,7 @@
 #include<stdbool.h>
 #include "heap.h"
 
-int main() {
+int main(void) {
     print_chunk_list();
     return 0;
 }
