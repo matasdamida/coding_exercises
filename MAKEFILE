@@ -1,0 +1,5 @@
+CC=clang
+CFLAGS=-Wall -Wextra
+
+all: src/main.c src/heap.c src/heap.h
+	$(CC) $(CFLAGS) src/main.c src/heap.c -o build/heap_alloc.exe
