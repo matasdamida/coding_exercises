@@ -8,12 +8,15 @@ build = build
 debug = build/debug
 release = build/release
 
-.PHONY: debug release
+.PHONY: debug release clean
 debug: $(c_files) $(h_files) | $(debug)
 	$(CC) $(CFLAGS) -ggdb $(c_files) -o $(debug)/heap_alloc.exe
 
 release: $(c_files) $(h_files) | $(release)
 	$(CC) $(CFLAGS) -O3 $(c_files) -o $(release)/heap_alloc.exe
+
+clean:
+	rm -fr "$(build)"
 
 $(debug): $(build)
 	mkdir "$(debug)"
