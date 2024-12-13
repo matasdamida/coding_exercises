@@ -25,4 +25,11 @@ extern Chunk_List chunk_list;
 
 void print_chunk_list(void);
 
+void* heap_alloc(size_t size);
+void heap_free(void* ptr);
+
+void chunk_list_insert(void* ptr, size_t size);
+int chunk_list_find(uintptr_t* ptr);
+void chunk_list_remove(size_t index);
+
 #endif // HEAP_H_
