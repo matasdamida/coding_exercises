@@ -4,6 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -pedantic
 c_files = src/main.c src/heap.c
 h_files = src/heap.h
 
+build = build
 debug = build/debug
 release = build/release
 
@@ -14,8 +15,11 @@ debug: $(c_files) $(h_files) | $(debug)
 release: $(c_files) $(h_files) | $(release)
 	$(CC) $(CFLAGS) -O3 $(c_files) -o $(release)/heap_alloc.exe
 
-$(debug):
+$(debug): $(build)
 	mkdir "$(debug)"
 
-$(release):
+$(release): $(build)
 	mkdir "$(release)"
+
+$(build):
+	mkdir "$(build)"
