@@ -1,5 +1,4 @@
-#ifndef HEAP_H_
-#define HEAP_H_
+#pragma once
 
 #include<stdint.h>
 
@@ -31,5 +30,3 @@ void chunk_list_merge_unused(void);
 void chunk_list_insert(void* ptr, size_t size, bool in_use);
 int chunk_list_find(void* ptr);
 void chunk_list_remove(size_t index);
-
-#endif // HEAP_H_
