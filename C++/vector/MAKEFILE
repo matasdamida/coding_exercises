@@ -4,7 +4,7 @@ DEBUGFLAGS = -ggdb3 -Og
 RELEASEFLAGS = -O3
 
 cpp_files = src/main.cpp src/vector.cpp
-h_files = src/vector.h
+hpp_files = src/vector.hpp src/vector.inl
 
 build = build
 debug = build/debug
@@ -13,10 +13,10 @@ release = build/release
 target = vector.exe
 
 .PHONY: debug release clean
-debug: $(cpp_files) $(h_files) | $(debug)
+debug: $(cpp_files) $(hpp_files) | $(debug)
 	$(CPP) $(CPPFLAGS) $(DEBUGFLAGS) $(cpp_files) -o $(debug)/$(target)
 
-release: $(cpp_files) $(h_files) | $(release)
+release: $(cpp_files) $(hpp_files) | $(release)
 	$(CPP) $(CPPFLAGS) $(RELEASEFLAGS) $(cpp_files) -o $(release)/$(target)
 
 clean:
