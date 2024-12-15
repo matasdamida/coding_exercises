@@ -5,9 +5,9 @@
 
 template<typename T>
 class vector {
-    T *data;
-    size_t size;
-    size_t capacity;
+    T* _data;
+    size_t _size;
+    size_t _capacity;
 
     size_t next_multiple_of(size_t n, size_t m);
 
@@ -17,7 +17,12 @@ public:
     vector(T* data, size_t size);
     vector(const vector &other);
     ~vector();
+
     void push_back(T value);
     T pop_back();
+    
     T& operator[](size_t index);
+
+    size_t size();
+    size_t capacity();
 };

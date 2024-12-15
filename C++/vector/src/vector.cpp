@@ -9,61 +9,56 @@ size_t vector<T>::next_multiple_of(size_t n, size_t m) {
 }
 
 template<typename T>
-vector<T>::vector() {
-    data = new T[VECTOR_STARTING_CAP];
-    size = 0;
-    capacity = VECTOR_STARTING_CAP;
-}
+vector<T>::vector(): _data(new T[VECTOR_STARTING_CAP]), _size(0), _capacity(VECTOR_STARTING_CAP) {}
 
 template<typename T>
-vector<T>::vector(size_t capacity) {
-    data = new T[capacity];
-    size = 0;
-    this->capacity = capacity;
-}
+vector<T>::vector(size_t capacity): _data(new T[capacity]), _size(0), _capacity(capacity) {}
 
 template<typename T>
-vector<T>::vector(T* data, size_t size) {
-    this->data = data;
-    this->size = size;
-    this->capacity = vector::next_multiple_of(VECTOR_STARTING_CAP, size);
-}
+vector<T>::vector(T* data, size_t size): _data(data), _size(size), _capacity(vector::next_multiple_of(VECTOR_STARTING_CAP, size)) {}
 
 template<typename T>
-vector<T>::vector(const vector &other) {
-    data = new T[other.capacity];
-    size = other.size;
-    capacity = other.capacity;
-    std::copy(other.data, other.data + other.size, data);
+vector<T>::vector(const vector &other): _data(new T[other._capacity]), _size(other._size), _capacity(other._capacity) {
+    std::copy(other._data, other._data + other._size, _data);
 }
 
 template<typename T>
 vector<T>::~vector() {
-    delete[] data;
+    delete[] _data;
 }
 
 template<typename T>
 void vector<T>::push_back(T value) {
-    if (size == capacity) {
-        capacity = next_multiple_of(VECTOR_STARTING_CAP, size + 1);
-        T* newData = new T[capacity];
-        std::copy(data, data + size, newData);
-        delete[] data;
-        data = newData;
+    if (_size == _capacity) {
+        _capacity = next_multiple_of(VECTOR_STARTING_CAP, _size + 1);
+        T* newData = new T[_capacity];
+        std::copy(_data, _data + _size, newData);
+        delete[] _data;
+        _data = newData;
     }
-    data[size++] = value;
+    _data[_size++] = value;
 }
 
 template<typename T>
 T vector<T>::pop_back() {
-    assert(size > 0);
-    return data[--size];
+    assert(_size > 0);
+    return _data[--_size];
 }
 
 template<typename T>
 T& vector<T>::operator[](size_t index) {
-    assert(index < size);
-    return data[index];
+    assert(index < _size);
+    return _data[index];
+}
+
+template<typename T>
+size_t vector<T>::size() {
+    return _size;
+}
+
+template<typename T>
+size_t vector<T>::capacity() {
+    return _capacity;
 }
 
 #include "vector.inl"

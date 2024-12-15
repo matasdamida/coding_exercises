@@ -4,7 +4,7 @@ DEBUGFLAGS = -ggdb3 -Og
 RELEASEFLAGS = -O3
 
 cpp_files = src/main.cpp src/vector.cpp
-hpp_files = src/vector.hpp src/vector.inl
+hpp_files = src/vector.hpp src/vector.inl 
 
 build = build
 debug = build/debug
