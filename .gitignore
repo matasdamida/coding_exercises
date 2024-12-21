@@ -1,7 +1,8 @@
-**/build
-**/build/*
+Release
+Debug
 
-**/target
-**/target/*
+target
 
 .vscode
+
+.clang-format
