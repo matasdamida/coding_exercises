@@ -2,9 +2,12 @@
 
 ## Quick Start
 
-### NMake + Clang
+### MinGW_Make + Clang
 
 ```console
-> cmake -G "NMake Makefiles" -D CMAKE_CXX_COMPILER=clang .
-> nmake
+> mkdir Release
+> cd Release
+> cmake -G "MinGW Makefiles" -D CMAKE_CXX_COMPILER=clang++ -D CMAKE_BUILD_TYPE=Release ..
+> make
+> ./bin/hashmap.exe
 ```
