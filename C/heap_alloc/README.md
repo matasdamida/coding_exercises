@@ -5,7 +5,10 @@
 ### NMake + Clang
 
 ```console
-> cmake -G "NMake MakeFiles" -D CMAKE_C_COMPILER=clang .
-> nmake
+> mkdir Release
+> cd Release
+> cmake -G "MinGW Makefiles" -D CMAKE_C_COMPILER=clang -D CMAKE_BUILD_TYPE=Release ..
+> make
+> ./bin/heap_alloc.exe
 ```
 
