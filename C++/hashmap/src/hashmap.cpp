@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 
-template <typename V> size_t hashmap<V>::hash(std::string key) {
+template <typename V> size_t hashmap<V>::djb2(std::string key) {
 	assert(!key.empty());
-	size_t hash = 0;
+	size_t hash = 5381;
 	for (size_t i = 0; i < key.size(); i++) {
-		hash = hash * HASH_MULT + key[i];
+		hash = ((hash << 5) + hash) + key[i];
 	}
 	return hash % _capacity;
 }
@@ -41,7 +41,7 @@ template <typename V> void hashmap<V>::auto_resize() {
 			new std::pair<std::string, V>[_capacity];
 		for (size_t i = 0; i < old_capacity; i++) {
 			if (!_table[i].first.empty()) {
-				size_t index = hash(_table[i].first);
+				size_t index = djb2(_table[i].first);
 				while (!new_table[index].first.empty()) {
 					index = (index + 1) % _capacity;
 				}
@@ -56,7 +56,7 @@ template <typename V> void hashmap<V>::auto_resize() {
 template <typename V> V &hashmap<V>::operator[](std::string key) {
 	assert(!key.empty());
 	auto_resize();
-	size_t index = hash(key);
+	size_t index = djb2(key);
 	while (_table[index].first != key && !_table[index].first.empty()) {
 		index = (index + 1) % _capacity;
 	}
@@ -100,7 +100,7 @@ std::vector<std::pair<std::string, V>> hashmap<V>::items() {
 
 template <typename V> void hashmap<V>::remove(std::string key) {
 	assert(!key.empty());
-	size_t starting_index = hash(key);
+	size_t starting_index = djb2(key);
 	size_t index = starting_index;
 	while (_table[index].first != key && !_table[index].first.empty()) {
 		index = (index + 1) % _capacity;
@@ -114,7 +114,7 @@ template <typename V> void hashmap<V>::remove(std::string key) {
 
 template <typename V> bool hashmap<V>::contains(std::string key) {
 	assert(!key.empty());
-	size_t starting_index = hash(key);
+	size_t starting_index = djb2(key);
 	size_t index = starting_index;
 	while (_table[index].first != key && !_table[index].first.empty()) {
 		index = (index + 1) % _capacity;
