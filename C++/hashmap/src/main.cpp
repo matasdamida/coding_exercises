@@ -89,8 +89,12 @@ int main(void) {
 	std::vector<std::string> words = split_whitespace(content);
 	std::cout << "Words: " << words.size() << std::endl;
 
+	std::cout << std::endl;
+
 	std::cout << "Using custom hashmap:" << std::endl;
 	count_words_hashmap(words);
+
+	std::cout << std::endl;
 
 	std::cout << "Using std::unordered_map:" << std::endl;
 	count_words_unordered_map(words);

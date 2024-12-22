@@ -5,7 +5,7 @@
 #define HASHMAP_STARTING_CAP 16
 #define HASHMAP_LOAD_FACTOR 0.75
 #define HASHMAP_MULT 2
-#define HASH_MULT 7
+#define HASH_MULT 33
 
 template <typename V> class hashmap {
 	size_t _capacity;
