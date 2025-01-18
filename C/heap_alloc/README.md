@@ -2,13 +2,10 @@
 
 ## Quick Start
 
-### NMake + Clang
+### Makefile + Clang
 
 ```console
-> mkdir Release
-> cd Release
-> cmake -G "MinGW Makefiles" -D CMAKE_C_COMPILER=clang -D CMAKE_BUILD_TYPE=Release ..
-> make
-> ./bin/heap_alloc.exe
+> make release
+> ./build/release/heap_alloc.exe
 ```
 
