@@ -7,6 +7,9 @@ cpp_files = $(wildcard src/*.cpp)
 hpp_files = $(wildcard src/*.hpp src/*.inl)
 data_files = $(wildcard *.txt)
 
+debug_obj_files = $(patsubst src/%.cpp, build/debug/%.o, $(cpp_files))
+release_obj_files = $(patsubst src/%.cpp, build/release/%.o, $(cpp_files))
+
 build = build
 debug = build/debug
 release = build/release
@@ -17,13 +20,17 @@ else
 	target = hashmap
 endif
 
-debug: $(cpp_files) $(hpp_files) | $(debug)
-	$(CPP) $(CPPFLAGS) $(DEBUGFLAGS) $(cpp_files) -o $(debug)/$(target)
-	cp -f "$(data_files)" $(debug)
+debug: $(debug) $(debug_obj_files)
+	$(CPP) $(CPPFLAGS) $(DEBUGFLAGS) $(debug_obj_files) -o $(debug)/$(target)
 
-release: $(cpp_files) $(hpp_files) | $(release)
-	$(CPP) $(CPPFLAGS) $(RELEASEFLAGS) $(cpp_files) -o $(release)/$(target)
-	cp -f "$(data_files)" $(release)
+release: $(release) $(release_obj_files)
+	$(CPP) $(CPPFLAGS) $(RELEASEFLAGS) $(release_obj_files) -o $(release)/$(target)
+
+build/debug/%.o: src/%.cpp $(hpp_files)
+	$(CPP) $(CPPFLAGS) -c $< -o $@
+
+build/release/%.o: src/%.cpp $(hpp_files)
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean:

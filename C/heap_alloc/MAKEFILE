@@ -6,6 +6,9 @@ RELEASEFLAGS = -O3
 c_files = $(wildcard src/*.c)
 h_files = $(wildcard src/*.h)
 
+debug_obj_files = $(patsubst src/%.c, build/debug/%.o, $(c_files))
+release_obj_files = $(patsubst src/%.c, build/release/%.o, $(c_files))
+
 build = build
 debug = build/debug
 release = build/release
@@ -16,11 +19,17 @@ else
 	target = heap_alloc
 endif
 
-debug: $(c_files) $(h_files) | $(debug)
-	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(c_files) -o $(debug)/$(target)
+debug: $(debug) $(debug_obj_files)
+	$(CC) $(CFLAGS) $(DEBUGFLAGS) $(debug_obj_files) -o $(debug)/$(target)
 
-release: $(c_files) $(h_files) | $(release)
-	$(CC) $(CFLAGS) $(RELEASEFLAGS) $(c_files) -o $(release)/$(target)
+release: $(release) $(release_obj_files)
+	$(CC) $(CFLAGS) $(RELEASEFLAGS) $(release_obj_files) -o $(release)/$(target)
+
+build/debug/%.o: src/%.c $(h_files)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+build/release/%.o: src/%.c $(h_files)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
 clean:
