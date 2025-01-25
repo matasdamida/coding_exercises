@@ -63,3 +63,37 @@ mod tokenizer_tests {
         );
     }
 }
+
+#[cfg(test)]
+mod split_tests {
+    #[test]
+    fn one_separator() {
+        assert_eq!(
+            "a,b,c".split(",").collect::<Vec<&str>>(),
+            vec!["a", "b", "c"]
+        );
+    }
+
+    #[test]
+    fn two_separators() {
+        assert_eq!(
+            "a,b;c".split(&[',', ';']).collect::<Vec<&str>>(),
+            vec!["a", "b", "c"]
+        );
+    }
+
+    #[test]
+    fn multiple_separators() {
+        assert_ne!(
+            "a, b".split(&[',', ' ']).collect::<Vec<&str>>(),
+            vec!["a", "b"]
+        );
+        assert_eq!(
+            "a, b"
+                .split(&[',', ' '])
+                .filter(|c| !c.is_empty())
+                .collect::<Vec<&str>>(),
+            vec!["a", "b"]
+        )
+    }
+}
